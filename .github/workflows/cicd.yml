@@ -24,7 +24,5 @@ jobs:
       - run: npm ci
       - name: Linter
         run: npm run lint
-      - name: Formatter
-        run: npm prettier
       - name: Build
         run: npm run build --if-present
