@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="285" height="75" viewBox="0 0 285 75">
+  <g id="Group_5" data-name="Group 5" transform="translate(192 1769)">
+    <text id="fac" transform="translate(-192 -1709)" fill="#dcdcdc" font-size="64" font-family="Raleway-Bold, Raleway" font-weight="700" letter-spacing="-0.06em"><tspan x="0" y="0">fac</tspan></text>
+    <g id="Group_3" data-name="Group 3" transform="translate(-29 492)">
+      <text id="e" transform="translate(-79 -2201)" fill="#ff5941" font-size="64" font-family="Raleway-Bold, Raleway" font-weight="700"><tspan x="0" y="0">e</tspan></text>
+      <text id="e-2" data-name="e" transform="translate(-62 -2201)" fill="#0d59a1" font-size="64" font-family="Raleway-Bold, Raleway" font-weight="700"><tspan x="0" y="0">e</tspan></text>
+    </g>
+    <text id="swap" transform="translate(-57 -1709)" fill="#dcdcdc" font-size="64" font-family="Raleway-Bold, Raleway" font-weight="700" letter-spacing="-0.06em"><tspan x="0" y="0">swap</tspan></text>
+  </g>
+</svg>
