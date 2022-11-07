@@ -17,3 +17,9 @@
 .read-the-docs {
   color: #888;
 }
+
+@media (max-width: 480px) {
+  .logo {
+    height: 2em;
+  }
+}
