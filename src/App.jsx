@@ -16,9 +16,13 @@ function App() {
   const mashupOptions = Array.from(mashupSet || []).sort();
 
   const submitHandler = (answers) => {
-    if (answers.includes(currentMashUp.celebrityOneAnswer) && answers.includes(currentMashUp.celebrityTwoAnswer)) {
+    if (verifyAnswers(answers)) {
       setCurrentMashupIndex((prevState) => prevState + 1);
     }
+  };
+
+  const verifyAnswers = (answers) => {
+    return answers.includes(currentMashUp.celebrityOneAnswer) && answers.includes(currentMashUp.celebrityTwoAnswer);
   };
 
   useEffect(() => {
@@ -34,7 +38,7 @@ function App() {
       <img src={faceeswap} className="logo" alt="faceeswap logo" />
       <div className="card">
         <img src={mashups[currentMashupIndex]?.photoUrls} alt="mashup" className="mashup-photo" />
-        <MashupForm options={mashupOptions} onSubmit={submitHandler} />
+        <MashupForm options={mashupOptions} onSubmit={submitHandler} verifyAnswers={verifyAnswers} />
       </div>
     </div>
   );
