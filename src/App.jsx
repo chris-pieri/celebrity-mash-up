@@ -1,25 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import faceeswap from './assets/faceeswap.svg';
 import './App.css';
-import AutocompleteInput from './Components/UI/AutocompleteInput';
+import client from './client';
+import MashupForm from './Components/MashupForm';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [mashups, setMashups] = useState([]);
+  const [currentMashupIndex, setCurrentMashupIndex] = useState(0);
+  const currentMashUp = mashups[currentMashupIndex];
+  const mashupSet = mashups.reduce((accum, mashup) => {
+    accum.add(mashup.celebrityOneAnswer);
+    accum.add(mashup.celebrityTwoAnswer);
+    return accum;
+  }, new Set());
+  const mashupOptions = Array.from(mashupSet || []).sort();
 
-  const changeHandler = (res) => console.log(res);
+  const submitHandler = (answers) => {
+    if (answers.includes(currentMashUp.celebrityOneAnswer) && answers.includes(currentMashUp.celebrityTwoAnswer)) {
+      setCurrentMashupIndex((prevState) => prevState + 1);
+    }
+  };
+
+  useEffect(() => {
+    async function getMashUps() {
+      const { data } = await client.get('/mashups');
+      setMashups(data);
+    }
+    getMashUps();
+  }, []);
 
   return (
     <div className="App">
       <img src={faceeswap} className="logo" alt="faceeswap logo" />
       <div className="card">
-        <AutocompleteInput onChange={changeHandler} />
-        <AutocompleteInput onChange={changeHandler} />
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <img src={mashups[currentMashupIndex]?.photoUrls} alt="mashup" className="mashup-photo" />
+        <MashupForm options={mashupOptions} onSubmit={submitHandler} />
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </div>
   );
 }
