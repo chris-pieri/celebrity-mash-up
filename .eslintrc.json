@@ -22,7 +22,10 @@
       }
     }
   },
-  "env": { "browser": true },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "env": { "browser": true, "es6": true },
   "rules": {
     // Add your own rules here to override ones from the extended configs.
     "react/react-in-jsx-scope": "off"

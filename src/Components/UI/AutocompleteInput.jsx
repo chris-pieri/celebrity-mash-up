@@ -1,9 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const options = ['Michael Jackson', 'Raymond Felton', 'George Costanza'];
-
-export default function AutocompleteInput({ onChange }) {
+export default function AutocompleteInput({ options, onChange }) {
   const changeHandler = (event, value) => {
     onChange(value);
   };
@@ -22,4 +20,5 @@ export default function AutocompleteInput({ onChange }) {
 
 AutocompleteInput.propTypes = {
   onChange: PropTypes.func.isRequired,
+  options: PropTypes.array,
 };

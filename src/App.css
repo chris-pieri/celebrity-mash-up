@@ -1,21 +1,17 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .logo {
-  height: 5em;
+  height: 4em;
   padding: 1.5em;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.mashup-photo {
+  height: 300px;
 }
 
 @media (max-width: 480px) {
