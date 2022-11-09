@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
-export default function AutocompleteInput({ value, options, onChange }) {
+export default function AutocompleteInput({ value, options, onChange, ...restProps }) {
   const [placeholder, setPlaceholder] = useState('Who could it be?');
   const changeHandler = (event, value) => {
     onChange(value);
@@ -27,6 +27,7 @@ export default function AutocompleteInput({ value, options, onChange }) {
       renderInput={(params) => (
         <TextField sx={{ input: { color: 'rgba(255, 255, 255, 0.87)' } }} {...params} placeholder={placeholder} />
       )}
+      {...restProps}
     />
   );
 }
