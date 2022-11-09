@@ -15,10 +15,8 @@ function App() {
   }, new Set());
   const mashupOptions = Array.from(mashupSet || []).sort();
 
-  const submitHandler = (answers) => {
-    if (verifyAnswers(answers)) {
-      setCurrentMashupIndex((prevState) => prevState + 1);
-    }
+  const nextHandler = () => {
+    setCurrentMashupIndex((prevState) => prevState + 1);
   };
 
   const verifyAnswers = (answers) => {
@@ -36,10 +34,12 @@ function App() {
   return (
     <div className="App">
       <img src={faceeswap} className="logo" alt="faceeswap logo" />
-      <div className="card">
-        <img src={mashups[currentMashupIndex]?.photoUrls} alt="mashup" className="mashup-photo" />
-        <MashupForm options={mashupOptions} onSubmit={submitHandler} verifyAnswers={verifyAnswers} />
-      </div>
+      <MashupForm
+        photo={mashups[currentMashupIndex]?.photoUrls}
+        options={mashupOptions}
+        onNext={nextHandler}
+        verifyAnswers={verifyAnswers}
+      />
     </div>
   );
 }
