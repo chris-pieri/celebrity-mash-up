@@ -3,7 +3,7 @@ import './mashup-form.css';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import AutocompleteInput from './UI/AutocompleteInput';
+import InputWithHints from './UI/InputWithHints';
 
 const Form = styled.form`
   display: flex;
@@ -14,8 +14,8 @@ const Form = styled.form`
 `;
 
 export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
-  const [firstCelebrity, setFirstCelebrity] = useState(null);
-  const [secondCelebrity, setSecondCelebrity] = useState(null);
+  const [firstCelebrity, setFirstCelebrity] = useState('');
+  const [secondCelebrity, setSecondCelebrity] = useState('');
   const [shake, setShake] = useState(0);
   const [leave, setLeave] = useState(0);
   const [enter, setEnter] = useState(1);
@@ -41,8 +41,8 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
     e.preventDefault();
     const answers = [firstCelebrity, secondCelebrity];
     if (verifyAnswers(answers)) {
-      setFirstCelebrity(null);
-      setSecondCelebrity(null);
+      setFirstCelebrity('');
+      setSecondCelebrity('');
       setLeave(1);
     } else {
       setShake(1);
@@ -60,8 +60,8 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
         data-leave={leave}
         onAnimationEnd={resetAnimations}
       />
-      <AutocompleteInput value={firstCelebrity} options={options} onChange={firstCelebrityHandler} fullWidth />
-      <AutocompleteInput value={secondCelebrity} options={options} onChange={secondCelebrityHandler} fullWidth />
+      <InputWithHints value={firstCelebrity} options={options} onChange={firstCelebrityHandler} />
+      <InputWithHints value={secondCelebrity} options={options} onChange={secondCelebrityHandler} />
       <button disabled={isDisabled} type="submit">
         Submit
       </button>
