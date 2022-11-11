@@ -1,6 +1,8 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useEffect, useState, useRef } from 'react';
+import Input from './Input';
+import Button from './Button';
 
 const Container = styled.div`
   display: flex;
@@ -14,12 +16,7 @@ const HintContainer = styled.div`
   gap: 4px;
 `;
 
-const Input = styled.input`
-  padding: 1rem 10px;
-  font-size: 1rem;
-`;
-
-const HintButton = styled.button`
+const HintButton = styled(Button)`
   font-size: 10px;
 `;
 

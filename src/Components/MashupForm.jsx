@@ -1,9 +1,10 @@
 import './mashup-form.css';
 
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import InputWithHints from './UI/InputWithHints';
+import Button from './UI/Button';
 
 const Form = styled.form`
   display: flex;
@@ -62,9 +63,9 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       />
       <InputWithHints value={firstCelebrity} options={options} onChange={firstCelebrityHandler} />
       <InputWithHints value={secondCelebrity} options={options} onChange={secondCelebrityHandler} />
-      <button disabled={isDisabled} type="submit">
+      <Button disabled={isDisabled} type="submit">
         Submit
-      </button>
+      </Button>
     </Form>
   );
 }
