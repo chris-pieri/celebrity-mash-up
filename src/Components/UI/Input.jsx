@@ -5,6 +5,7 @@ const Input = styled.input`
   font-size: 1rem;
   border: 1px solid;
   font-family: inherit;
+  color: ${({ theme }) => theme.text.main};
   background-color: ${({ theme }) => theme.background.main};
   border-color: ${({ theme }) => theme.background.light};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -15,7 +16,8 @@ const Input = styled.input`
   }
 
   &:focus {
-    outline: ${({ theme }) => theme.secondary.main} solid 1px;
+    outline: 4px auto -webkit-focus-ring-color;
+    outline-color: ${({ theme }) => theme.secondary.main};
   }
 `;
 

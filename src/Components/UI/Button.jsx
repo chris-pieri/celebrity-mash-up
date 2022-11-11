@@ -7,6 +7,7 @@ const Button = styled.button`
   font-family: inherit;
   cursor: pointer;
   border: 1px solid transparent;
+  color: ${({ theme }) => theme.text.main};
   border-radius: ${({ theme }) => theme.borderRadius};
   background-color: ${({ theme }) => theme.background.dark};
   transition: border-color 0.25s;
