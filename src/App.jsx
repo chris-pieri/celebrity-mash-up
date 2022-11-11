@@ -3,6 +3,9 @@ import faceeswap from './assets/faceeswap.svg';
 import './App.css';
 import client from './client';
 import MashupForm from './Components/MashupForm';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './themes/theme';
+import GlobalStyles from './themes/GlobalStyles';
 
 function App() {
   const [mashups, setMashups] = useState([]);
@@ -32,15 +35,18 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <img src={faceeswap} className="logo" alt="faceeswap logo" />
-      <MashupForm
-        photo={mashups[currentMashupIndex]?.photoUrls}
-        options={mashupOptions}
-        onNext={nextHandler}
-        verifyAnswers={verifyAnswers}
-      />
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <div className="App">
+        <img src={faceeswap} className="logo" alt="faceeswap logo" />
+        <MashupForm
+          photo={mashups[currentMashupIndex]?.photoUrls}
+          options={mashupOptions}
+          onNext={nextHandler}
+          verifyAnswers={verifyAnswers}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 
