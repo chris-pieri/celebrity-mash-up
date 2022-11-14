@@ -10,7 +10,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.text.main};
   border-radius: ${({ theme }) => theme.borderRadius};
   background-color: ${({ theme }) => theme.background.dark};
-  transition: border-color 0.25s;
+  transition: all 0.25s;
 
   &:hover {
     border-color: ${({ theme }) => theme.primary.main};

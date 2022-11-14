@@ -1,53 +1,50 @@
 import { useEffect, useState } from 'react';
-import faceeswap from './assets/faceeswap.svg';
 import './App.css';
-import client from './client';
-import MashupForm from './Components/MashupForm';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './themes/theme';
+import styled, { ThemeProvider } from 'styled-components';
+import { DARK_THEME, LIGHT_THEME } from './themes/Themes';
 import GlobalStyles from './themes/GlobalStyles';
+import Game from './Components/Game';
+import TitleLogo from './assets/TitleLogo';
+import EmojiButton from './Components/UI/EmojiButton';
+import Wiggle from './Components/UI/Wiggle';
+
+const CURRENT_THEME_LS = 'current_theme';
 
 function App() {
-  const [mashups, setMashups] = useState([]);
-  const [currentMashupIndex, setCurrentMashupIndex] = useState(0);
-  const currentMashUp = mashups[currentMashupIndex];
-  const mashupSet = mashups.reduce((accum, mashup) => {
-    accum.add(mashup.celebrityOneAnswer);
-    accum.add(mashup.celebrityTwoAnswer);
-    return accum;
-  }, new Set());
-  const mashupOptions = Array.from(mashupSet || []).sort();
-
-  const nextHandler = () => {
-    setCurrentMashupIndex((prevState) => prevState + 1);
+  const getInitialTheme = () => {
+    const localStorageTheme = localStorage.getItem(CURRENT_THEME_LS);
+    return localStorageTheme ? JSON.parse(localStorageTheme) : DARK_THEME;
   };
+  const [currentTheme, setCurrentTheme] = useState(getInitialTheme);
 
-  const verifyAnswers = (answers) => {
-    return answers.includes(currentMashUp.celebrityOneAnswer) && answers.includes(currentMashUp.celebrityTwoAnswer);
+  const toggleThemeHandler = () => {
+    setCurrentTheme((prevTheme) => (prevTheme.type === 'dark' ? LIGHT_THEME : DARK_THEME));
   };
 
   useEffect(() => {
-    async function getMashUps() {
-      const { data } = await client.get('/mashups');
-      setMashups(data);
-    }
-    getMashUps();
-  }, []);
+    localStorage.setItem(CURRENT_THEME_LS, JSON.stringify(currentTheme));
+  }, [currentTheme]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
-      <div className="App">
-        <img src={faceeswap} className="logo" alt="faceeswap logo" />
-        <MashupForm
-          photo={mashups[currentMashupIndex]?.photoUrls}
-          options={mashupOptions}
-          onNext={nextHandler}
-          verifyAnswers={verifyAnswers}
-        />
-      </div>
+      <TitleWrapper>
+        <TitleLogo />
+        <Wiggle id="toggle-btn" rotation={45}>
+          <EmojiButton onClick={toggleThemeHandler}>{currentTheme.type === 'dark' ? `🌙` : `☀️`}</EmojiButton>
+        </Wiggle>
+      </TitleWrapper>
+      <Game />
     </ThemeProvider>
   );
 }
 
 export default App;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 1.5rem;
+  width: 100%;
+`;

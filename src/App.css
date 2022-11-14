@@ -8,14 +8,3 @@
   text-align: center;
   height: 100vh;
 }
-
-.logo {
-  height: 4em;
-  padding: 1.5em;
-}
-
-@media (max-width: 480px) {
-  .logo {
-    height: 2em;
-  }
-}
