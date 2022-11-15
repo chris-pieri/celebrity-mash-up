@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Wiggle = ({ id, rotation = 0, timing = 150, children }) => {
+const Wiggle = ({ rotation = 0, timing = 150, children }) => {
   const [isWiggling, setIsWiggling] = useState(false);
 
   const style = {
-    display: 'inline-block',
+    display: 'flex',
     backfaceVisibility: 'hidden',
     transform: isWiggling ? `rotate(${rotation}deg)` : `rotate(0deg)`,
     transition: `transform ${timing}ms`,
@@ -30,7 +30,7 @@ const Wiggle = ({ id, rotation = 0, timing = 150, children }) => {
   };
 
   return (
-    <span id={id} onMouseEnter={trigger} style={style}>
+    <span onMouseEnter={trigger} style={style}>
       {children}
     </span>
   );
@@ -39,7 +39,6 @@ const Wiggle = ({ id, rotation = 0, timing = 150, children }) => {
 export default Wiggle;
 
 Wiggle.propTypes = {
-  id: PropTypes.string,
   rotation: PropTypes.number,
   timing: PropTypes.number,
   children: PropTypes.node,

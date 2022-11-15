@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-const EmojiButton = styled.button`
+const UnstyledButton = styled.button`
   font-size: 1.5rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 `;
 
-export default EmojiButton;
+export default UnstyledButton;
