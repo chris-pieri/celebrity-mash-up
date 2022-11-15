@@ -15,7 +15,6 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        max-width: 1280px;
         margin: 0 auto;
         text-align: center;
         height: 100vh;
@@ -32,15 +31,9 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         display: flex;
         place-items: center;
-        width: 320px;
+        width: 300px;
         min-height: 100vh;
     }
-
-    @media (max-width: 480px) {
-        body {
-            width: 300px;
-        }
-  }
 `;
 
 export default GlobalStyles;
