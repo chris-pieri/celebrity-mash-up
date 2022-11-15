@@ -9,7 +9,7 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.background.main};
   border-color: ${({ theme }) => theme.background.light};
   border-radius: ${({ theme }) => theme.borderRadius};
-  transition: border-color 0.25s;
+  transition: all 0.25s;
 
   &:hover {
     border-color: ${({ theme }) => theme.primary.main};
