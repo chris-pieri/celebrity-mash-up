@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { DARK_THEME, LIGHT_THEME } from './Themes/themes';
-import GlobalStyles from './Themes/globalStyles';
+import { DARK_THEME, LIGHT_THEME } from './themes/themes';
+import GlobalStyles from './themes/globalStyles';
 import Game from './Components/Game';
 import TitleLogo from './assets/TitleLogo';
 import EmojiButton from './Components/UI/EmojiButton';
