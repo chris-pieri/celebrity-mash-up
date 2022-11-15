@@ -54,7 +54,7 @@ export default function InputWithHints({ options, value, onChange }) {
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      if (value.length < 3) {
+      if (value.length === 0) {
         return setFilteredOptions([]);
       }
 

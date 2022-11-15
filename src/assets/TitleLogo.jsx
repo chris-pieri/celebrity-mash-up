@@ -21,7 +21,7 @@ const Svg = styled.svg`
   }
 
   @media (max-width: 480px) {
-    height: 2em;
+    height: 2.5em;
   }
 `;
 
