@@ -25,6 +25,8 @@ const Container = styled.div`
 const HintContainer = styled.div`
   display: flex;
   gap: 4px;
+  height: ${({ hide }) => (hide ? 0 : 27.5)}px;
+  transition: height 0.3s ease;
 `;
 
 const HintButton = styled(Button)`
@@ -39,6 +41,7 @@ const MAX_FILTRED_OPTIONS = 3;
 export default function InputWithHints({ options, value, onChange }) {
   const inputRef = useRef();
   const [filteredOptions, setFilteredOptions] = useState([]);
+  const [hideHints, setHideHints] = useState(true);
 
   const changeHandler = (e) => {
     onChange(e.target.value);
@@ -50,22 +53,30 @@ export default function InputWithHints({ options, value, onChange }) {
   };
 
   useEffect(() => {
-    if (value.length < 3) {
-      return setFilteredOptions([]);
-    }
+    const timerId = setTimeout(() => {
+      if (value.length < 3) {
+        return setFilteredOptions([]);
+      }
 
-    if (options.includes(value)) {
-      return setFilteredOptions([]);
-    }
+      if (options.includes(value)) {
+        return setFilteredOptions([]);
+      }
 
-    const allFilteredOptions = options; //options.filter((option) => option.toLowerCase().includes(value.toLowerCase()));
-    setFilteredOptions(allFilteredOptions.slice(0, MAX_FILTRED_OPTIONS));
+      setHideHints(false);
+      const allFilteredOptions = options.filter((option) => option.toLowerCase().includes(value.toLowerCase()));
+      setFilteredOptions(allFilteredOptions.slice(0, MAX_FILTRED_OPTIONS));
+    }, 500);
+
+    setHideHints(true);
+    setFilteredOptions([]);
+
+    return () => clearTimeout(timerId);
   }, [value]);
 
   return (
     <Container>
       <Input type="text" ref={inputRef} value={value} onChange={changeHandler} placeholder="Who could it be?" />
-      <HintContainer>
+      <HintContainer hide={hideHints}>
         {filteredOptions.map((option, index) => (
           <Hint value={option} key={option} onClick={hintClickHandler} index={index} />
         ))}
