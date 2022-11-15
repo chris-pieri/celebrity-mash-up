@@ -7,9 +7,18 @@ const GlobalStyles = createGlobalStyle`
         line-height: 24px;
         font-weight: 400;
 
-        color-scheme: light dark;
+        color-scheme: dark light;
         color: ${({ theme }) => theme.primary.main};
         background-color: ${({ theme }) => theme.background.root};
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        text-align: center;
+        height: 100vh;
 
         font-synthesis: none;
         text-rendering: optimizeLegibility;
@@ -23,9 +32,15 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         display: flex;
         place-items: center;
-        min-width: 320px;
+        width: 320px;
         min-height: 100vh;
     }
+
+    @media (max-width: 480px) {
+        body {
+            width: 300px;
+        }
+  }
 `;
 
 export default GlobalStyles;
