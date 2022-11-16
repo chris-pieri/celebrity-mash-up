@@ -35,7 +35,7 @@ export const LIGHT_THEME = {
   background: {
     root: '#FAFAFA',
     main: '#f0f0f0',
-    light: '#707070',
+    light: '#e1e1e4',
     dark: '#f0f0f0',
   },
   text: {
