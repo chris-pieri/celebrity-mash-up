@@ -34,12 +34,12 @@ export const LIGHT_THEME = {
   },
   background: {
     root: '#FAFAFA',
-    main: '#FFFFFF',
+    main: '#f0f0f0',
     light: '#707070',
     dark: '#f0f0f0',
   },
   text: {
-    main: '#141A2A',
+    main: '#2D344B',
   },
   success: {
     main: '#4caf50',
