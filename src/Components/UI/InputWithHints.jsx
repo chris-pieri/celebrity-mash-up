@@ -26,14 +26,14 @@ const HintContainer = styled.div`
   display: flex;
   gap: 4px;
   height: ${({ hide }) => (hide ? 0 : 27.5)}px;
-  transition: height 0.3s ease;
+  transition: height 200ms ease;
 `;
 
 const HintButton = styled(Button)`
   opacity: 0;
   font-size: 10px;
   animation: ${HintButtonEnter} 0.3s ease forwards;
-  animation-delay: ${({ index }) => `${index * 100}`}ms;
+  animation-delay: ${({ index }) => `${(index + 1) * 100}`}ms;
 `;
 
 const MAX_FILTRED_OPTIONS = 3;
