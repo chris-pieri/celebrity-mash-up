@@ -40,6 +40,10 @@ export default function Game() {
     getMashUps();
   }, []);
 
+  if (!mashups.length) {
+    return <Container />;
+  }
+
   return (
     <Container>
       <AnimatePresence onExitComplete={() => setShowGameOver(true)}>
@@ -50,7 +54,6 @@ export default function Game() {
               options={mashupOptions}
               onNext={nextHandler}
               verifyAnswers={verifyAnswers}
-              isLastMashup={Boolean(currentMashupIndex === mashups.length - 1)}
             />
           </ExitAnimation>
         )}
