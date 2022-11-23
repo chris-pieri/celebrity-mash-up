@@ -1,11 +1,11 @@
-import './mashup-form.css';
-
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import InputWithHints from './UI/InputWithHints';
 import Button from './UI/Button';
 import ButtonBounce from './Animations/ButtonBounce';
+import ImgCarousel from './Animations/ImgCarousel';
+import { AnimatePresence } from 'framer-motion';
 
 const Form = styled.form`
   display: flex;
@@ -15,53 +15,41 @@ const Form = styled.form`
   width: 100%;
 `;
 
-export default function MashupForm({ options, photo, onNext, verifyAnswers, isLastMashup }) {
+const Img = styled(ImgCarousel)`
+  height: 300px;
+  max-width: 300px;
+  box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px, rgb(9 30 66 / 8%) 0px 0px 0px 1px;
+`;
+
+export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
   const [firstCelebrity, setFirstCelebrity] = useState('');
   const [secondCelebrity, setSecondCelebrity] = useState('');
-  const [shake, setShake] = useState(0);
-  const [leave, setLeave] = useState(0);
-  const [enter, setEnter] = useState(1);
+  const [shake, setShake] = useState(false);
+
+  const resetShakeHandler = () => {
+    setShake(false);
+  };
 
   const firstCelebrityHandler = (celebrity) => setFirstCelebrity(celebrity);
   const secondCelebrityHandler = (celebrity) => setSecondCelebrity(celebrity);
 
-  const resetAnimations = () => {
-    if (leave === 1) {
-      onNext();
-      setEnter(1);
-      setLeave(0);
-    } else {
-      setShake(0);
-      setLeave(0);
-      setEnter(0);
-    }
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
     const answers = [firstCelebrity, secondCelebrity];
-    if (isLastMashup && verifyAnswers(answers)) {
-      onNext();
-    } else if (verifyAnswers(answers)) {
+    if (verifyAnswers(answers)) {
       setFirstCelebrity('');
       setSecondCelebrity('');
-      setLeave(1);
+      onNext();
     } else {
-      setShake(1);
+      setShake(true);
     }
   };
 
   return (
     <Form onSubmit={submitHandler} autoComplete="off">
-      <img
-        src={photo}
-        alt="mashup"
-        className="image"
-        data-shake={shake}
-        data-enter={enter}
-        data-leave={leave}
-        onAnimationEnd={resetAnimations}
-      />
+      <AnimatePresence mode="wait">
+        <Img src={photo} key={photo} alt="mashup" shake={shake} onReset={resetShakeHandler} />
+      </AnimatePresence>
       <InputWithHints value={firstCelebrity} options={options} onChange={firstCelebrityHandler} />
       <InputWithHints value={secondCelebrity} options={options} onChange={secondCelebrityHandler} />
       <ButtonBounce>
@@ -76,5 +64,4 @@ MashupForm.propTypes = {
   onNext: PropTypes.func.isRequired,
   verifyAnswers: PropTypes.func.isRequired,
   photo: PropTypes.string,
-  isLastMashup: PropTypes.bool,
 };
