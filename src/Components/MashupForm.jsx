@@ -15,7 +15,7 @@ const Form = styled.form`
   width: 100%;
 `;
 
-export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
+export default function MashupForm({ options, photo, onNext, verifyAnswers, isLastMashup }) {
   const [firstCelebrity, setFirstCelebrity] = useState('');
   const [secondCelebrity, setSecondCelebrity] = useState('');
   const [shake, setShake] = useState(0);
@@ -40,7 +40,9 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
   const submitHandler = (e) => {
     e.preventDefault();
     const answers = [firstCelebrity, secondCelebrity];
-    if (verifyAnswers(answers)) {
+    if (isLastMashup && verifyAnswers(answers)) {
+      onNext();
+    } else if (verifyAnswers(answers)) {
       setFirstCelebrity('');
       setSecondCelebrity('');
       setLeave(1);
@@ -74,4 +76,5 @@ MashupForm.propTypes = {
   onNext: PropTypes.func.isRequired,
   verifyAnswers: PropTypes.func.isRequired,
   photo: PropTypes.string,
+  isLastMashup: PropTypes.bool,
 };
