@@ -5,10 +5,10 @@ import GlobalStyles from './themes/GlobalStyles';
 import Game from './Components/Game';
 import TitleLogo from './assets/TitleLogo';
 import UnstyledButton from './Components/UI/UnstyledButton';
-import Wiggle from './Components/UI/Wiggle';
 import { ReactComponent as DarkMode } from './assets/dark_mode.svg';
 import { ReactComponent as LightMode } from './assets/light_mode.svg';
 import Icon from './Components/UI/Icon';
+import Wiggle from './Components/Animations/Wiggle';
 
 const CURRENT_THEME_LS = 'current_theme';
 

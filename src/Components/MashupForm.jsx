@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import InputWithHints from './UI/InputWithHints';
 import Button from './UI/Button';
+import ButtonBounce from './Animations/ButtonBounce';
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  min-width: 300px;
   align-items: center;
+  width: 100%;
 `;
 
 export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
@@ -23,8 +24,6 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
 
   const firstCelebrityHandler = (celebrity) => setFirstCelebrity(celebrity);
   const secondCelebrityHandler = (celebrity) => setSecondCelebrity(celebrity);
-
-  const isDisabled = !firstCelebrity || !secondCelebrity || firstCelebrity === secondCelebrity;
 
   const resetAnimations = () => {
     if (leave === 1) {
@@ -63,9 +62,9 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       />
       <InputWithHints value={firstCelebrity} options={options} onChange={firstCelebrityHandler} />
       <InputWithHints value={secondCelebrity} options={options} onChange={secondCelebrityHandler} />
-      <Button disabled={isDisabled} type="submit">
-        Submit
-      </Button>
+      <ButtonBounce>
+        <Button type="submit">Submit</Button>
+      </ButtonBounce>
     </Form>
   );
 }
