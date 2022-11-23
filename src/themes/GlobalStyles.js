@@ -11,14 +11,6 @@ const GlobalStyles = createGlobalStyle`
         color: ${({ theme }) => theme.primary.main};
         background-color: ${({ theme }) => theme.background.root};
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        text-align: center;
-        height: 100vh;
-
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -27,11 +19,19 @@ const GlobalStyles = createGlobalStyle`
         transition: all 0.25s;
     }
 
+    #root {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        text-align: center;
+        height: 100vh;
+        width: 300px;
+    }
+
     body {
         margin: 0;
-        display: flex;
-        place-items: center;
-        width: 300px;
         min-height: 100vh;
     }
 `;

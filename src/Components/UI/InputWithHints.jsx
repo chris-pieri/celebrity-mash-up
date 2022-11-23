@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState, useRef } from 'react';
 import Input from './Input';
 import Button from './Button';
+import ButtonBounce from '../Animations/ButtonBounce';
 
 const HintButtonEnter = keyframes`
     from {
@@ -96,9 +97,11 @@ const Hint = ({ value, onClick, index }) => {
     onClick(value);
   };
   return (
-    <HintButton index={index} type="button" onClick={clickHandler}>
-      {value}
-    </HintButton>
+    <ButtonBounce>
+      <HintButton index={index} type="button" onClick={clickHandler}>
+        {value}
+      </HintButton>
+    </ButtonBounce>
   );
 };
 
