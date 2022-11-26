@@ -6,6 +6,7 @@ import Gameover from './Gameover';
 import ExitAnimation from './Animations/ExitAnimation';
 import styled from 'styled-components';
 import urlParams from '../Utils/QueryParams';
+import { preloadImages } from '../Utils/images';
 
 const Container = styled.div`
   min-height: 520px;
@@ -29,8 +30,9 @@ export default function Game() {
 
   const nextHandler = () => {
     setCurrentMashupIndex((prevState) => {
-      urlParams.setId(prevState + 1);
-      return prevState + 1;
+      const newIndex = prevState + 1;
+      urlParams.setId(newIndex === mashups.length ? 0 : newIndex);
+      return newIndex;
     });
   };
 
@@ -42,6 +44,7 @@ export default function Game() {
     async function getMashUps() {
       const { data } = await client.get('/mashups');
       setMashups(data);
+      preloadImages(data.map((data) => data.photoUrls));
     }
     getMashUps();
   }, []);
