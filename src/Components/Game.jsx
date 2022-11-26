@@ -5,6 +5,7 @@ import MashupForm from './MashupForm';
 import Gameover from './Gameover';
 import ExitAnimation from './Animations/ExitAnimation';
 import styled from 'styled-components';
+import urlParams from '../Utils/QueryParams';
 
 const Container = styled.div`
   min-height: 520px;
@@ -13,7 +14,9 @@ const Container = styled.div`
 
 export default function Game() {
   const [mashups, setMashups] = useState([]);
-  const [currentMashupIndex, setCurrentMashupIndex] = useState(0);
+  const [currentMashupIndex, setCurrentMashupIndex] = useState(() => {
+    return urlParams.getId() || 0;
+  });
   const [showGameOver, setShowGameOver] = useState(false);
   const currentMashUp = mashups[currentMashupIndex];
   const isGameover = Boolean(mashups.length && mashups.length === currentMashupIndex);
@@ -25,7 +28,10 @@ export default function Game() {
   const mashupOptions = Array.from(mashupSet || []).sort();
 
   const nextHandler = () => {
-    setCurrentMashupIndex((prevState) => prevState + 1);
+    setCurrentMashupIndex((prevState) => {
+      urlParams.setId(prevState + 1);
+      return prevState + 1;
+    });
   };
 
   const verifyAnswers = (answers) => {
