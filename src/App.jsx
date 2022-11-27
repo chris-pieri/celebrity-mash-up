@@ -9,6 +9,9 @@ import { ReactComponent as DarkMode } from './assets/dark_mode.svg';
 import { ReactComponent as LightMode } from './assets/light_mode.svg';
 import Icon from './Components/UI/Icon';
 import Wiggle from './Components/Animations/Wiggle';
+import useSound from 'use-sound';
+import lightOn from './assets/light_on.mp3';
+import lightOff from './assets/light_off.mp3';
 
 const CURRENT_THEME_LS = 'current_theme';
 
@@ -19,8 +22,18 @@ function App() {
   };
   const [currentTheme, setCurrentTheme] = useState(getInitialTheme);
 
+  const [lightOnSound] = useSound(lightOn);
+  const [lightOffSound] = useSound(lightOff);
+
   const toggleThemeHandler = () => {
-    setCurrentTheme((prevTheme) => (prevTheme.type === 'dark' ? LIGHT_THEME : DARK_THEME));
+    setCurrentTheme((prevTheme) => {
+      if (prevTheme.type === 'dark') {
+        lightOnSound();
+        return LIGHT_THEME;
+      }
+      lightOffSound();
+      return DARK_THEME;
+    });
   };
 
   useEffect(() => {

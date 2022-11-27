@@ -6,6 +6,9 @@ import Button from './UI/Button';
 import ButtonBounce from './Animations/ButtonBounce';
 import ImgCarousel from './Animations/ImgCarousel';
 import { AnimatePresence } from 'framer-motion';
+import useSound from 'use-sound';
+import correctAnswer from '../assets/correct_answer.mp3';
+import wrongAnswer from '../assets/wrong_answer.mp3';
 
 const Form = styled.form`
   display: flex;
@@ -25,6 +28,8 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
   const [firstCelebrity, setFirstCelebrity] = useState('');
   const [secondCelebrity, setSecondCelebrity] = useState('');
   const [shake, setShake] = useState(false);
+  const [correctSound] = useSound(correctAnswer);
+  const [wrongSound] = useSound(wrongAnswer);
 
   const resetShakeHandler = () => {
     setShake(false);
@@ -40,7 +45,9 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       setFirstCelebrity('');
       setSecondCelebrity('');
       onNext();
+      correctSound();
     } else {
+      wrongSound();
       setShake(true);
     }
   };
