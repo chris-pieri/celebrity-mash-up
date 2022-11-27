@@ -10,6 +10,13 @@ import useSound from 'use-sound';
 import correctAnswerMP3 from '../assets/correct_answer.mp3';
 import wrongAnswerMP3 from '../assets/wrong_answer.mp3';
 import VolumeContext from '../Context/VolumeContext';
+import JSConfetti from 'js-confetti';
+
+const jsConfetti = new JSConfetti();
+const confettiConfig = {
+  confettiColors: ['#F0795B', '#34B2A1', '#F7B03D', '#78CCDF', '#DC9BC6', '#9372AF', '#697FEE'],
+  confettiNumber: 100,
+};
 
 const Form = styled.form`
   display: flex;
@@ -50,6 +57,7 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       setSecondCelebrity('');
       onNext();
       correctAnswerSound();
+      jsConfetti.addConfetti(confettiConfig);
     } else {
       wrongAnswerSound();
       setShake(true);
