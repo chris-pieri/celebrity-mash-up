@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import InputWithHints from './UI/InputWithHints';
 import Button from './UI/Button';
 import ButtonBounce from './Animations/ButtonBounce';
 import ImgCarousel from './Animations/ImgCarousel';
 import { AnimatePresence } from 'framer-motion';
 import useSound from 'use-sound';
-import correctAnswer from '../assets/correct_answer.mp3';
-import wrongAnswer from '../assets/wrong_answer.mp3';
+import correctAnswerMP3 from '../assets/correct_answer.mp3';
+import wrongAnswerMP3 from '../assets/wrong_answer.mp3';
+import VolumeContext from '../Context/VolumeContext';
 
 const Form = styled.form`
   display: flex;
@@ -25,11 +26,14 @@ const Img = styled(ImgCarousel)`
 `;
 
 export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
+  const volumeContext = useContext(VolumeContext);
+
   const [firstCelebrity, setFirstCelebrity] = useState('');
   const [secondCelebrity, setSecondCelebrity] = useState('');
   const [shake, setShake] = useState(false);
-  const [correctSound] = useSound(correctAnswer);
-  const [wrongSound] = useSound(wrongAnswer);
+
+  const [correctAnswerSound] = useSound(correctAnswerMP3, { soundEnabled: volumeContext.isVolumeOn });
+  const [wrongAnswerSound] = useSound(wrongAnswerMP3, { soundEnabled: volumeContext.isVolumeOn });
 
   const resetShakeHandler = () => {
     setShake(false);
@@ -45,9 +49,9 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       setFirstCelebrity('');
       setSecondCelebrity('');
       onNext();
-      correctSound();
+      correctAnswerSound();
     } else {
-      wrongSound();
+      wrongAnswerSound();
       setShake(true);
     }
   };
