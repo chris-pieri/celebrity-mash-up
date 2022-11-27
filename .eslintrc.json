@@ -28,6 +28,7 @@
   "env": { "browser": true, "es6": true },
   "rules": {
     // Add your own rules here to override ones from the extended configs.
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "import/no-named-as-default": "off"
   }
 }
