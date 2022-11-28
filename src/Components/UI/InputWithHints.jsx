@@ -1,20 +1,10 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useEffect, useState, useRef } from 'react';
 import Input from './Input';
 import Button from './Button';
 import ButtonBounce from '../Animations/ButtonBounce';
-
-const HintButtonEnter = keyframes`
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-`;
+import SlideDown from '../Animations/SlideDown';
 
 const Container = styled.div`
   display: flex;
@@ -26,15 +16,13 @@ const Container = styled.div`
 const HintContainer = styled.div`
   display: flex;
   gap: 4px;
-  height: ${({ hide }) => (hide ? 0 : 27.5)}px;
+  height: ${({ show }) => (show ? 27.5 : 0)}px;
   transition: height 200ms ease;
 `;
 
 const HintButton = styled(Button)`
-  opacity: 0;
   font-size: 10px;
-  animation: ${HintButtonEnter} 0.3s ease forwards;
-  animation-delay: ${({ index }) => `${(index + 1) * 100}`}ms;
+  white-space: nowrap;
 `;
 
 const MAX_FILTRED_OPTIONS = 3;
@@ -42,7 +30,6 @@ const MAX_FILTRED_OPTIONS = 3;
 export default function InputWithHints({ options, value, onChange }) {
   const inputRef = useRef();
   const [filteredOptions, setFilteredOptions] = useState([]);
-  const [hideHints, setHideHints] = useState(true);
 
   const changeHandler = (e) => {
     onChange(e.target.value);
@@ -54,30 +41,22 @@ export default function InputWithHints({ options, value, onChange }) {
   };
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
-      if (value.length === 0) {
-        return setFilteredOptions([]);
-      }
+    if (value.length === 0) {
+      return setFilteredOptions([]);
+    }
 
-      if (options.includes(value)) {
-        return setFilteredOptions([]);
-      }
+    if (options.includes(value)) {
+      return setFilteredOptions([]);
+    }
 
-      setHideHints(false);
-      const allFilteredOptions = options.filter((option) => option.toLowerCase().includes(value.toLowerCase()));
-      setFilteredOptions(allFilteredOptions.slice(0, MAX_FILTRED_OPTIONS));
-    }, 500);
-
-    setHideHints(true);
-    setFilteredOptions([]);
-
-    return () => clearTimeout(timerId);
+    const allFilteredOptions = options.filter((option) => option.toLowerCase().includes(value.toLowerCase()));
+    setFilteredOptions(allFilteredOptions.slice(0, MAX_FILTRED_OPTIONS));
   }, [value]);
 
   return (
     <Container>
       <Input type="text" ref={inputRef} value={value} onChange={changeHandler} placeholder="Who could it be?" />
-      <HintContainer hide={hideHints}>
+      <HintContainer show={filteredOptions.length}>
         {filteredOptions.map((option, index) => (
           <Hint value={option} key={option} onClick={hintClickHandler} index={index} />
         ))}
@@ -97,11 +76,13 @@ const Hint = ({ value, onClick, index }) => {
     onClick(value);
   };
   return (
-    <ButtonBounce>
-      <HintButton index={index} type="button" onClick={clickHandler}>
-        {value}
-      </HintButton>
-    </ButtonBounce>
+    <SlideDown delay={index * 0.05}>
+      <ButtonBounce>
+        <HintButton type="button" onClick={clickHandler}>
+          {value}
+        </HintButton>
+      </ButtonBounce>
+    </SlideDown>
   );
 };
 
