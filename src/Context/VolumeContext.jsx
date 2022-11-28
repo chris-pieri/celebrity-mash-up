@@ -4,8 +4,11 @@ import volumeOnMP3 from '../assets/volume_on.mp3';
 import volumeOffMP3 from '../assets/volume_off.mp3';
 import PropTypes from 'prop-types';
 
+const VOLUME = 0.2;
+
 const VolumeContext = createContext({
   isVolumeOn: true,
+  volume: VOLUME,
   toggleVolumeOn: () => {},
 });
 
@@ -20,8 +23,8 @@ export function VolumeContextProvider({ children }) {
   };
   const [isVolumeOn, setIsVolumeOn] = useState(getInitialVolume);
 
-  const [volumeOnSound] = useSound(volumeOnMP3);
-  const [volumeOffSound] = useSound(volumeOffMP3);
+  const [volumeOnSound] = useSound(volumeOnMP3, { volume: VOLUME });
+  const [volumeOffSound] = useSound(volumeOffMP3, { volume: VOLUME });
 
   const toggleVolumeHandler = () => {
     setIsVolumeOn((prevState) => {
@@ -39,7 +42,7 @@ export function VolumeContextProvider({ children }) {
   }, [isVolumeOn]);
 
   return (
-    <VolumeContext.Provider value={{ isVolumeOn, toggleVolumeOn: toggleVolumeHandler }}>
+    <VolumeContext.Provider value={{ isVolumeOn, volume: VOLUME, toggleVolumeOn: toggleVolumeHandler }}>
       {children}
     </VolumeContext.Provider>
   );

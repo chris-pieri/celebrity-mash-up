@@ -7,10 +7,10 @@ import VolumeContext from '../Context/VolumeContext';
 import { useContext, useEffect, useState } from 'react';
 
 export default function Gameover() {
-  const volumeContext = useContext(VolumeContext);
+  const { isVolumeOn, volume } = useContext(VolumeContext);
 
   const [hasSoundPlayed, setHasSoundPlayed] = useState(false);
-  const [completeSound] = useSound(completeMP3, { soundEnabled: volumeContext.isVolumeOn });
+  const [completeSound] = useSound(completeMP3, { soundEnabled: isVolumeOn, volume: volume });
 
   useEffect(() => {
     let timer;
