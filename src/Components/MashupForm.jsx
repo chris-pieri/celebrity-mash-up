@@ -33,14 +33,14 @@ const Img = styled(ImgCarousel)`
 `;
 
 export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
-  const volumeContext = useContext(VolumeContext);
+  const { isVolumeOn, volume } = useContext(VolumeContext);
 
   const [firstCelebrity, setFirstCelebrity] = useState('');
   const [secondCelebrity, setSecondCelebrity] = useState('');
   const [shake, setShake] = useState(false);
 
-  const [correctAnswerSound] = useSound(correctAnswerMP3, { soundEnabled: volumeContext.isVolumeOn });
-  const [wrongAnswerSound] = useSound(wrongAnswerMP3, { soundEnabled: volumeContext.isVolumeOn });
+  const [correctAnswerSound] = useSound(correctAnswerMP3, { soundEnabled: isVolumeOn, volume });
+  const [wrongAnswerSound] = useSound(wrongAnswerMP3, { soundEnabled: isVolumeOn, volume });
 
   const resetShakeHandler = () => {
     setShake(false);

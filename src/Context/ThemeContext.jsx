@@ -18,15 +18,15 @@ export default ThemeContext;
 const CURRENT_THEME_LS = 'current_theme';
 
 export function ThemeContextProvider({ children }) {
-  const volumeContext = useContext(VolumeContext);
+  const { isVolumeOn, volume } = useContext(VolumeContext);
   const getInitialTheme = () => {
     const localStorageTheme = localStorage.getItem(CURRENT_THEME_LS);
     return localStorageTheme ? JSON.parse(localStorageTheme) : DARK_THEME;
   };
   const [theme, setTheme] = useState(getInitialTheme);
 
-  const [lightOnSound] = useSound(lightOnMP3, { soundEnabled: volumeContext.isVolumeOn });
-  const [lightOffSound] = useSound(lightOffMP3, { soundEnabled: volumeContext.isVolumeOn });
+  const [lightOnSound] = useSound(lightOnMP3, { soundEnabled: isVolumeOn, volume });
+  const [lightOffSound] = useSound(lightOffMP3, { soundEnabled: isVolumeOn, volume });
 
   const toggleThemeHandler = () => {
     setTheme((prevTheme) => {
