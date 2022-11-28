@@ -18,15 +18,10 @@ export default function Game() {
   const [currentMashupIndex, setCurrentMashupIndex] = useState(() => {
     return urlParams.getId() || 0;
   });
+  const [mashupOptions, setMashupOptions] = useState([]);
   const [showGameOver, setShowGameOver] = useState(false);
   const currentMashUp = mashups[currentMashupIndex];
   const isGameover = Boolean(mashups.length && mashups.length === currentMashupIndex);
-  const mashupSet = mashups.reduce((accum, mashup) => {
-    accum.add(mashup.celebrityOneAnswer);
-    accum.add(mashup.celebrityTwoAnswer);
-    return accum;
-  }, new Set());
-  const mashupOptions = Array.from(mashupSet || []).sort();
 
   const nextHandler = () => {
     setCurrentMashupIndex((prevState) => {
@@ -43,8 +38,9 @@ export default function Game() {
   useEffect(() => {
     async function getMashUps() {
       const { data } = await client.get('/mashups');
-      setMashups(data);
-      preloadImages(data.map((data) => data.photoUrls));
+      setMashups(data.mashups);
+      setMashupOptions(data.celebrities);
+      preloadImages(data.mashups.map((data) => data.photoUrls));
     }
     getMashUps();
   }, []);
