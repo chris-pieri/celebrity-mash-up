@@ -1,11 +1,11 @@
 import { createContext, useState, useEffect, useContext } from 'react';
-import { DARK_THEME, LIGHT_THEME } from '../themes/Themes';
+import { DARK_THEME, LIGHT_THEME } from '../Themes/Themes';
 import useSound from 'use-sound';
 import lightOnMP3 from '../assets/light_on.mp3';
 import lightOffMP3 from '../assets/light_off.mp3';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import GlobalStyles from '../themes/GlobalStyles';
+import GlobalStyles from '../Themes/GlobalStyles';
 import VolumeContext from './VolumeContext';
 
 const ThemeContext = createContext({
