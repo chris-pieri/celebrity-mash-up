@@ -6,7 +6,7 @@ import Gameover from './Gameover';
 import ExitAnimation from './Animations/ExitAnimation';
 import styled from 'styled-components';
 import urlParams from '../Utils/QueryParams';
-import { preloadImages } from '../Utils/images';
+import { preloadImages } from '../Utils/Images';
 
 const Container = styled.div`
   min-height: 520px;
