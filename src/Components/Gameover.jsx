@@ -1,39 +1,22 @@
 import FadeUp from './Animations/FadeUp';
-import complete from '../assets/complete.png';
 import styled from 'styled-components';
-import useSound from 'use-sound';
-import completeMP3 from '../assets/complete.mp3';
-import VolumeContext from '../Context/VolumeContext';
-import { useContext, useEffect, useState } from 'react';
+import Trophy from './Trophy';
+import TextBubble from './UI/TextBubble';
+
+const TROPHY_DIALOG = [
+  'Congratulations you answered all the face swaps!',
+  "Come back later and I'll have more waiting for you.",
+  'Be sure to share this game with your friends.',
+];
 
 export default function Gameover() {
-  const { isVolumeOn, volume } = useContext(VolumeContext);
-
-  const [hasSoundPlayed, setHasSoundPlayed] = useState(false);
-  const [completeSound] = useSound(completeMP3, { soundEnabled: isVolumeOn, volume: volume });
-
-  useEffect(() => {
-    let timer;
-    if (!hasSoundPlayed) {
-      timer = setTimeout(() => {
-        setHasSoundPlayed(true);
-        completeSound();
-      }, 2500);
-    }
-
-    return () => clearTimeout(timer);
-  }, [completeSound]);
-
   return (
     <Container>
-      <FadeUp delay={2.5}>
-        <Img src={complete} alt="complete" />
+      <FadeUp y={50}>
+        <Trophy />
       </FadeUp>
-      <FadeUp delay={4.5}>
-        <p>Thanks for playing! Come back soon for more face swaps.</p>
-      </FadeUp>
-      <FadeUp delay={5.5}>
-        <p>Please share with your friends.</p>
+      <FadeUp y={20}>
+        <TextBubble dialog={TROPHY_DIALOG}></TextBubble>
       </FadeUp>
     </Container>
   );
@@ -42,11 +25,4 @@ export default function Gameover() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-`;
-
-const Img = styled.img`
-  @media (max-width: 480px) {
-    width: 350px;
-  }
 `;
