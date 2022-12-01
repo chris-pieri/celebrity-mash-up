@@ -5,11 +5,9 @@ import { ThemeContextProvider } from './Context/ThemeContext';
 import { VolumeContextProvider } from './Context/VolumeContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <VolumeContextProvider>
-      <ThemeContextProvider>
-        <App />
-      </ThemeContextProvider>
-    </VolumeContextProvider>
-  </React.StrictMode>,
+  <VolumeContextProvider>
+    <ThemeContextProvider>
+      <App />
+    </ThemeContextProvider>
+  </VolumeContextProvider>,
 );

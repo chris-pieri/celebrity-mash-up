@@ -5,27 +5,12 @@ import Input from './Input';
 import Button from './Button';
 import ButtonBounce from '../Animations/ButtonBounce';
 import SlideDown from '../Animations/SlideDown';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-`;
-
-const HintContainer = styled.div`
-  display: flex;
-  gap: 4px;
-  height: ${({ show }) => (show ? 27.5 : 0)}px;
-  transition: height 200ms ease;
-`;
-
-const HintButton = styled(Button)`
-  font-size: 10px;
-  white-space: nowrap;
-`;
+import Typewriter from 'typewriter-effect/dist/core';
+import { padString } from '../../Utils/Strings';
+import { shuffle } from '../../Utils/Arrays';
 
 const MAX_FILTRED_OPTIONS = 3;
+const REQUIRED_OPTION_LENGTH = 25;
 
 export default function InputWithHints({ options, value, onChange }) {
   const inputRef = useRef();
@@ -39,6 +24,36 @@ export default function InputWithHints({ options, value, onChange }) {
     onChange(hint);
     inputRef.current.focus();
   };
+
+  const customNodeCreator = function (character) {
+    inputRef.current.placeholder = inputRef.current.placeholder + character;
+    // Return null to skip internal adding of dom node
+    return null;
+  };
+
+  const onRemoveNode = function () {
+    if (inputRef.current.placeholder) {
+      inputRef.current.placeholder = inputRef.current.placeholder.slice(0, -1);
+    }
+  };
+
+  useEffect(() => {
+    const shuffledOptions = ['Who could it be???', ...shuffle(options)];
+    const paddedOptions = shuffledOptions.map((option) => padString(option, REQUIRED_OPTION_LENGTH));
+    let typeWriter = new Typewriter(null, {
+      strings: paddedOptions,
+      delay: 60,
+      loop: true,
+      autoStart: true,
+      onCreateTextNode: customNodeCreator,
+      onRemoveNode: onRemoveNode,
+    });
+
+    return () => {
+      typeWriter.stop();
+      typeWriter = undefined;
+    };
+  }, []);
 
   useEffect(() => {
     if (value.length === 0) {
@@ -55,7 +70,7 @@ export default function InputWithHints({ options, value, onChange }) {
 
   return (
     <Container>
-      <Input type="text" ref={inputRef} value={value} onChange={changeHandler} placeholder="Who could it be?" />
+      <Input type="text" ref={inputRef} value={value} onChange={changeHandler} />
       <HintContainer show={filteredOptions.length}>
         {filteredOptions.map((option, index) => (
           <Hint value={option} key={option} onClick={hintClickHandler} index={index} />
@@ -91,3 +106,22 @@ Hint.propTypes = {
   onClick: PropTypes.func,
   index: PropTypes.number,
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+`;
+
+const HintContainer = styled.div`
+  display: flex;
+  gap: 4px;
+  height: ${({ show }) => (show ? 27.5 : 0)}px;
+  transition: height 200ms ease;
+`;
+
+const HintButton = styled(Button)`
+  font-size: 10px;
+  white-space: nowrap;
+`;
