@@ -8,7 +8,7 @@ export default function ExitAnimation({ id, children }) {
       key={id}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ y: 70, opacity: 0, transition: { duration: 0.8 } }}
+      exit={{ y: 70, opacity: 0, transition: { duration: 1 } }}
     >
       {children}
     </motion.div>
