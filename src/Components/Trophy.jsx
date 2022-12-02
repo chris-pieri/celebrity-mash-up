@@ -2,6 +2,7 @@ import SmilingTrophy from '../assets/smiling_trophy.svg';
 import BlinkingTrophy from '../assets/blinking_trophy.svg';
 import HurtTrophy from '../assets/hurt_trophy.svg';
 import AngryTrophy from '../assets/angry_trophy.svg';
+import ConfettiBackground from '../assets/confetti-background.webp';
 import Float from './Animations/Float';
 import styled from 'styled-components';
 import { useReducer, useEffect } from 'react';
@@ -81,20 +82,28 @@ export default function Trophy() {
     }, 1000);
   };
   return (
-    <Float>
-      <Img
-        src={trophy.image}
-        alt="trophy"
-        onTouchStart={mouseDownHandler}
-        onTouchEnd={mouseUpHandler}
-        onMouseDown={mouseDownHandler}
-        onMouseUp={mouseUpHandler}
-      />
-    </Float>
+    <Container>
+      <Float>
+        <Img
+          src={trophy.image}
+          alt="trophy"
+          onTouchStart={mouseDownHandler}
+          onTouchEnd={mouseUpHandler}
+          onMouseDown={mouseDownHandler}
+          onMouseUp={mouseUpHandler}
+        />
+      </Float>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  background-image: url(${ConfettiBackground});
+  background-size: cover;
+`;
+
 const Img = styled.img`
+  z-index: 2;
   cursor: pointer;
   height: 250px;
   @media (max-width: 480px) {
