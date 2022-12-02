@@ -9,20 +9,31 @@ import useSound from 'use-sound';
 import BlopMP3 from '../../assets/blop.mp3';
 import { motion } from 'framer-motion';
 
+const SPRITE_MAP = {
+  boop: [0, 55],
+  bop: [55, 130],
+};
+
 export default function TextBubble({ dialog }) {
   const { isVolumeOn, volume } = useContext(VolumeContext);
-  const [blopSound] = useSound(BlopMP3, { soundEnabled: isVolumeOn, volume });
+  const [blopSound] = useSound(BlopMP3, { soundEnabled: isVolumeOn, volume, sprite: SPRITE_MAP });
   const [dialogIndex, setDialogIndex] = useState(0);
   const [messageTyped, setMessageTyped] = useState(false);
   const nextHandler = () => {
     if (!messageTyped) return null;
     setDialogIndex((prevState) => prevState + 1);
     setMessageTyped(false);
-    blopSound();
+    blopSound({ id: 'bop' });
   };
 
   return (
-    <Bubble onClick={nextHandler} whileTap={{ scale: messageTyped ? 0.9 : 1 }}>
+    <Bubble
+      onMouseDown={() => blopSound({ id: 'boop' })}
+      onTouchStart={() => blopSound({ id: 'boop' })}
+      onMouseUp={nextHandler}
+      onTouchEnd={nextHandler}
+      whileTap={{ scale: messageTyped ? 0.9 : 1 }}
+    >
       {dialog.map((text, index) => {
         return (
           index === dialogIndex && (

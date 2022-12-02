@@ -15,11 +15,12 @@ const TROPHY_DIALOG = [
 
 export default function Gameover() {
   const { isVolumeOn, volume } = useContext(VolumeContext);
-  const [completedSound] = useSound(CompletedMP3, { soundEnabled: isVolumeOn, volume });
+  const [completedSound, soundOptions] = useSound(CompletedMP3, { soundEnabled: isVolumeOn, volume });
 
   useEffect(() => {
     completedSound();
-  }, [completedSound]);
+  }, [soundOptions.duration]);
+
   return (
     <Container>
       <FadeUp y={50}>
