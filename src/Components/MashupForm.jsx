@@ -72,7 +72,7 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       <InputWithHints value={firstCelebrity} options={options} onChange={firstCelebrityHandler} />
       <InputWithHints value={secondCelebrity} options={options} onChange={secondCelebrityHandler} />
       <ButtonBounce>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Guess</Button>
       </ButtonBounce>
     </Form>
   );
