@@ -5,7 +5,10 @@ import AngryTrophy from '../assets/angry_trophy.svg';
 import ConfettiBackground from '../assets/confetti-background.webp';
 import Float from './Animations/Float';
 import styled from 'styled-components';
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, useContext } from 'react';
+import VolumeContext from '../Context/VolumeContext';
+import useSound from 'use-sound';
+import OofMP3 from '../assets/oof.mp3';
 
 const TROPHY_EXPRESSIONS = {
   SMILING: 'smiling',
@@ -56,6 +59,10 @@ const trophyReducer = (state, action) => {
 let angryTimeout;
 
 export default function Trophy() {
+  const { isVolumeOn, volume } = useContext(VolumeContext);
+
+  const [oofSound] = useSound(OofMP3, { soundEnabled: isVolumeOn, volume, interrupt: true, playbackRate: 1.1 });
+
   const [trophy, dispatchTrophy] = useReducer(trophyReducer, {
     expression: TROPHY_EXPRESSIONS.SMILING,
     image: TROPHY_IMAGES[TROPHY_EXPRESSIONS.SMILING],
@@ -71,6 +78,7 @@ export default function Trophy() {
   }, []);
 
   const mouseDownHandler = () => {
+    oofSound();
     dispatchTrophy({ type: 'HURT' });
   };
 
