@@ -25,13 +25,23 @@ export default function TextBubble({ dialog }) {
     setMessageTyped(false);
     blopSound({ id: 'bop' });
   };
+  const mouseUpHandler = () => {
+    if (!messageTyped) return null;
+    blopSound({ id: 'boop' });
+  };
 
   return (
     <Bubble
-      onMouseDown={() => blopSound({ id: 'boop' })}
-      onTouchStart={() => blopSound({ id: 'boop' })}
+      onMouseDown={mouseUpHandler}
       onMouseUp={nextHandler}
-      onTouchEnd={nextHandler}
+      onTouchStart={(e) => {
+        e.preventDefault();
+        mouseUpHandler();
+      }}
+      onTouchEnd={(e) => {
+        e.preventDefault();
+        nextHandler();
+      }}
       whileTap={{ scale: messageTyped ? 0.9 : 1 }}
     >
       {dialog.map((text, index) => {
