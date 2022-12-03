@@ -9,6 +9,7 @@ import { useReducer, useEffect, useContext } from 'react';
 import VolumeContext from '../Context/VolumeContext';
 import useSound from 'use-sound';
 import OofMP3 from '../assets/oof.mp3';
+import { motion } from 'framer-motion';
 
 const TROPHY_EXPRESSIONS = {
   SMILING: 'smiling',
@@ -61,7 +62,12 @@ let angryTimeout;
 export default function Trophy() {
   const { isVolumeOn, volume } = useContext(VolumeContext);
 
-  const [oofSound] = useSound(OofMP3, { soundEnabled: isVolumeOn, volume, interrupt: true, playbackRate: 1.1 });
+  const [oofSound] = useSound(OofMP3, {
+    soundEnabled: isVolumeOn,
+    volume: volume - 0.1,
+    interrupt: true,
+    playbackRate: 1.1,
+  });
 
   const [trophy, dispatchTrophy] = useReducer(trophyReducer, {
     expression: TROPHY_EXPRESSIONS.SMILING,
@@ -89,16 +95,24 @@ export default function Trophy() {
       dispatchTrophy({ type: 'RESET_ANGRY' });
     }, 1000);
   };
+
   return (
     <Container>
       <Float>
         <Img
           src={trophy.image}
           alt="trophy"
-          onTouchStart={mouseDownHandler}
-          onTouchEnd={mouseUpHandler}
+          onTouchStart={(e) => {
+            e.preventDefault();
+            mouseDownHandler();
+          }}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            mouseUpHandler();
+          }}
           onMouseDown={mouseDownHandler}
           onMouseUp={mouseUpHandler}
+          whileTap={{ scale: 0.95 }}
         />
       </Float>
     </Container>
@@ -110,7 +124,7 @@ const Container = styled.div`
   background-size: cover;
 `;
 
-const Img = styled.img`
+const Img = styled(motion.img)`
   z-index: 2;
   cursor: pointer;
   height: 250px;
