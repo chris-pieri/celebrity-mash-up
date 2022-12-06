@@ -14,6 +14,7 @@ export const DARK_THEME = {
   },
   text: {
     main: '#DCDCDC',
+    disabled: '#8e8e8e',
   },
   success: {
     main: '#4caf50',
@@ -40,6 +41,7 @@ export const LIGHT_THEME = {
   },
   text: {
     main: '#2D344B',
+    disabled: '#8e8e8e',
   },
   success: {
     main: '#4caf50',

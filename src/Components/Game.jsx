@@ -31,6 +31,17 @@ export default function Game() {
     });
   };
 
+  const previousHandler = () => {
+    setCurrentMashupIndex((prevState) => {
+      const newIndex = prevState - 1;
+      urlParams.setId(newIndex === mashups.length ? 0 : newIndex);
+      return newIndex;
+    });
+  };
+
+  const isNextDisabled = currentMashupIndex === mashups.length - 1;
+  const isPreviousDisabled = currentMashupIndex === 0;
+
   const verifyAnswers = (answers) => {
     return answers.includes(currentMashUp.celebrityOneAnswer) && answers.includes(currentMashUp.celebrityTwoAnswer);
   };
@@ -58,7 +69,10 @@ export default function Game() {
               photo={mashups[currentMashupIndex]?.photoUrls}
               options={mashupOptions}
               onNext={nextHandler}
+              onPrevious={previousHandler}
               verifyAnswers={verifyAnswers}
+              isNextDisabled={isNextDisabled}
+              isPreviousDisabled={isPreviousDisabled}
             />
           </ExitAnimation>
         )}

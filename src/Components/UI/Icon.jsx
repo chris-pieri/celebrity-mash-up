@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Icon = styled.div`
-  fill: ${({ theme }) => theme.text.main};
+  fill: ${({ theme, disabled }) => (disabled ? theme.text.disabled : theme.text.main)};
   height: 2rem;
   width: 2rem;
 `;
