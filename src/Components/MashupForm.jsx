@@ -28,7 +28,6 @@ const Form = styled.form`
 
 const Img = styled(ImgCarousel)`
   height: 300px;
-  max-width: 300px;
   box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px, rgb(9 30 66 / 8%) 0px 0px 0px 1px;
 `;
 
