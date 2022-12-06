@@ -11,9 +11,6 @@ import correctAnswerMP3 from '../assets/correct_answer.mp3';
 import wrongAnswerMP3 from '../assets/wrong_answer.mp3';
 import VolumeContext from '../Context/VolumeContext';
 import JSConfetti from 'js-confetti';
-import { ReactComponent as ArrowForward } from '../assets/arrow_forward.svg';
-import { ReactComponent as ArrowBack } from '../assets/arrow_back.svg';
-import Icon from './UI/Icon';
 
 const jsConfetti = new JSConfetti();
 const confettiConfig = {
@@ -99,9 +96,7 @@ export default function MashupForm({
       <BtnRow>
         <ButtonBounce>
           <Button type="button" onClick={previousHandler} disabled={isPreviousDisabled}>
-            <Icon disabled={isPreviousDisabled}>
-              <ArrowBack />
-            </Icon>
+            Back
           </Button>
         </ButtonBounce>
         <ButtonBounce>
@@ -109,9 +104,7 @@ export default function MashupForm({
         </ButtonBounce>
         <ButtonBounce>
           <Button type="button" onClick={nextHandler} disabled={isNextDisabled}>
-            <Icon disabled={isNextDisabled}>
-              <ArrowForward />
-            </Icon>
+            Skip
           </Button>
         </ButtonBounce>
       </BtnRow>
