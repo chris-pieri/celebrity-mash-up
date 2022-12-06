@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
         color: ${({ theme }) => theme.primary.main};
         background-color: ${({ theme }) => theme.background.root};
 
+        overflow-y: overlay;
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;

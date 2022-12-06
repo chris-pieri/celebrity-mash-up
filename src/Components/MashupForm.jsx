@@ -11,6 +11,9 @@ import correctAnswerMP3 from '../assets/correct_answer.mp3';
 import wrongAnswerMP3 from '../assets/wrong_answer.mp3';
 import VolumeContext from '../Context/VolumeContext';
 import JSConfetti from 'js-confetti';
+import { ReactComponent as ArrowForward } from '../assets/arrow_forward.svg';
+import { ReactComponent as ArrowBack } from '../assets/arrow_back.svg';
+import Icon from './UI/Icon';
 
 const jsConfetti = new JSConfetti();
 const confettiConfig = {
@@ -32,7 +35,15 @@ const Img = styled(ImgCarousel)`
   box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px, rgb(9 30 66 / 8%) 0px 0px 0px 1px;
 `;
 
-export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
+export default function MashupForm({
+  options,
+  photo,
+  onNext,
+  onPrevious,
+  verifyAnswers,
+  isNextDisabled,
+  isPreviousDisabled,
+}) {
   const { isVolumeOn, volume } = useContext(VolumeContext);
 
   const [firstCelebrity, setFirstCelebrity] = useState('');
@@ -64,6 +75,20 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
     }
   };
 
+  const nextHandler = (e) => {
+    e.preventDefault();
+    setFirstCelebrity('');
+    setSecondCelebrity('');
+    onNext();
+  };
+
+  const previousHandler = (e) => {
+    e.preventDefault();
+    setFirstCelebrity('');
+    setSecondCelebrity('');
+    onPrevious();
+  };
+
   return (
     <Form onSubmit={submitHandler} autoComplete="off">
       <AnimatePresence mode="wait">
@@ -71,9 +96,25 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
       </AnimatePresence>
       <InputWithHints value={firstCelebrity} options={options} onChange={firstCelebrityHandler} />
       <InputWithHints value={secondCelebrity} options={options} onChange={secondCelebrityHandler} />
-      <ButtonBounce>
-        <Button type="submit">Guess</Button>
-      </ButtonBounce>
+      <BtnRow>
+        <ButtonBounce>
+          <Button type="button" onClick={previousHandler} disabled={isPreviousDisabled}>
+            <Icon disabled={isPreviousDisabled}>
+              <ArrowBack />
+            </Icon>
+          </Button>
+        </ButtonBounce>
+        <ButtonBounce>
+          <Button type="submit">Guess</Button>
+        </ButtonBounce>
+        <ButtonBounce>
+          <Button type="button" onClick={nextHandler} disabled={isNextDisabled}>
+            <Icon disabled={isNextDisabled}>
+              <ArrowForward />
+            </Icon>
+          </Button>
+        </ButtonBounce>
+      </BtnRow>
     </Form>
   );
 }
@@ -81,6 +122,15 @@ export default function MashupForm({ options, photo, onNext, verifyAnswers }) {
 MashupForm.propTypes = {
   options: PropTypes.array.isRequired,
   onNext: PropTypes.func.isRequired,
+  onPrevious: PropTypes.func.isRequired,
   verifyAnswers: PropTypes.func.isRequired,
   photo: PropTypes.string,
+  isNextDisabled: PropTypes.bool.isRequired,
+  isPreviousDisabled: PropTypes.bool.isRequired,
 };
+
+const BtnRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;

@@ -12,6 +12,11 @@ const Input = styled.input`
   transition: all 0.25s;
   z-index: 2;
 
+  &::placeholder {
+    color: ${({ theme }) => theme.text.disabled};
+    opacity: 1;
+  }
+
   &:hover {
     border-color: ${({ theme }) => theme.primary.main};
   }

@@ -25,7 +25,7 @@ export default function ImgCarousel({ shake, onReset, ...restProps }) {
       initial={shake ? 'initialShake' : 'initialEnter'}
       animate={shake ? 'shake' : 'enter'}
       exit={{ rotate: 180, opacity: 0 }}
-      transition={{ duration: 0.8, type: 'spring' }}
+      transition={{ duration: 0.7, type: 'spring' }}
       {...restProps}
     />
   );

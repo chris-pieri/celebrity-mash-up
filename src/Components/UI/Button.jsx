@@ -16,6 +16,10 @@ const Button = styled.button`
     border-color: ${({ theme }) => theme.primary.main};
   }
 
+  &:disabled {
+    color: ${({ theme }) => theme.text.disabled};
+  }
+
   &:focus,
   &:focus-visible {
     outline: ${({ theme }) => theme.secondary.main} solid 1px;
