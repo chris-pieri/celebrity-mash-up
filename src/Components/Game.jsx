@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import SmilingTrophy from '../assets/smiling_trophy.svg';
+import BlinkingTrophy from '../assets/blinking_trophy.svg';
+import HurtTrophy from '../assets/hurt_trophy.svg';
+import AngryTrophy from '../assets/angry_trophy.svg';
+import ConfettiBackground from '../assets/confetti-background.webp';
 import client from '../client';
 import MashupForm from './MashupForm';
 import Gameover from './Gameover';
@@ -51,6 +56,7 @@ export default function Game() {
       setMashups(data.mashups);
       setMashupOptions(data.celebrities);
       preloadImages(data.mashups.map((data) => data.photoUrls));
+      preloadImages([HurtTrophy, AngryTrophy, SmilingTrophy, BlinkingTrophy, ConfettiBackground]);
     }
     getMashUps();
   }, []);
