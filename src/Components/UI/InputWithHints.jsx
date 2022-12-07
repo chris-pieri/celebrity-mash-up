@@ -38,7 +38,7 @@ export default function InputWithHints({ options, value, onChange }) {
   };
 
   useEffect(() => {
-    const shuffledOptions = ['Who could it be??', ...shuffle(options)];
+    const shuffledOptions = ['Who could it be?', ...shuffle(options)];
     const paddedOptions = shuffledOptions.map((option) => padString(option, REQUIRED_OPTION_LENGTH));
     let typeWriter = new Typewriter(null, {
       strings: paddedOptions,

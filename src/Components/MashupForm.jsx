@@ -18,28 +18,7 @@ const confettiConfig = {
   confettiNumber: 100,
 };
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  width: 100%;
-`;
-
-const Img = styled(ImgCarousel)`
-  height: 300px;
-  box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px, rgb(9 30 66 / 8%) 0px 0px 0px 1px;
-`;
-
-export default function MashupForm({
-  options,
-  photo,
-  onNext,
-  onPrevious,
-  verifyAnswers,
-  isNextDisabled,
-  isPreviousDisabled,
-}) {
+export default function MashupForm({ options, photo, onNext, onPrevious, verifyAnswers, isPreviousDisabled }) {
   const { isVolumeOn, volume } = useContext(VolumeContext);
 
   const [firstCelebrity, setFirstCelebrity] = useState('');
@@ -102,7 +81,7 @@ export default function MashupForm({
           <Button type="submit">Guess</Button>
         </ButtonBounce>
         <ButtonBounce>
-          <Button type="button" onClick={nextHandler} disabled={isNextDisabled}>
+          <Button type="button" onClick={nextHandler}>
             Skip
           </Button>
         </ButtonBounce>
@@ -117,9 +96,21 @@ MashupForm.propTypes = {
   onPrevious: PropTypes.func.isRequired,
   verifyAnswers: PropTypes.func.isRequired,
   photo: PropTypes.string,
-  isNextDisabled: PropTypes.bool.isRequired,
   isPreviousDisabled: PropTypes.bool.isRequired,
 };
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+`;
+
+const Img = styled(ImgCarousel)`
+  height: 300px;
+  box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px, rgb(9 30 66 / 8%) 0px 0px 0px 1px;
+`;
 
 const BtnRow = styled.div`
   width: 100%;
