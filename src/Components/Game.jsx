@@ -39,7 +39,6 @@ export default function Game() {
     });
   };
 
-  const isNextDisabled = currentMashupIndex === mashups.length - 1;
   const isPreviousDisabled = currentMashupIndex === 0;
 
   const verifyAnswers = (answers) => {
@@ -71,7 +70,6 @@ export default function Game() {
               onNext={nextHandler}
               onPrevious={previousHandler}
               verifyAnswers={verifyAnswers}
-              isNextDisabled={isNextDisabled}
               isPreviousDisabled={isPreviousDisabled}
             />
           </ExitAnimation>
